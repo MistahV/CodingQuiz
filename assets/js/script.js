@@ -18,18 +18,31 @@ let questions = [{
      
 const totalQuestions = questions.length;
 
-
 const timer = document.querySelector('#timer')
-// const container = document.querySelector('.quiz-container');
 const questionEl = document.querySelector('#question');
-// const option1 = document.querySelector('#option1');
-// const option2 = document.querySelector('#option2');
-// const option3 = document.querySelector('#option3');
-// const option3 = document.querySelector('#option4');
+
+const answer1 = document.querySelector('#answer1');
+const button1 = document.createElement('button');
+      button1.type = 'button'
+
+const answer2 = document.querySelector('#answer2');
+const button2 = document.createElement('button');
+      button2.type = 'button'
+
+const answer3 = document.querySelector('#answer3');
+const button3 = document.createElement('button');
+      button3.type = 'button'
+
+const answer4 = document.querySelector('#answer4')
+const button4 = document.createElement('button');
+      button4.type = 'button'
+;
+
 // const nextButton = document.querySelector('.next');
 // const previousButton = document.querySelector('.previous');
 // const restartButton = document.querySelector('.restart');
 // const result = document.querySelector('.result');
+// const container = document.querySelector('.quiz-container');
 
 
 /* Add functions */
@@ -37,8 +50,6 @@ const questionEl = document.querySelector('#question');
 // start quiz --> init
 function startQuiz() {
     /* start timer */
-    console.log('quiz has started!')
-
    let secondsLeft = 90
     function startTimer() {
       let quizTimer = setInterval(function() {
@@ -55,10 +66,20 @@ function startQuiz() {
     getQuestion();
 
     function getQuestion() {
-       questionEl.innerHTML = `${currentQuestion+1} . ${questions[currentQuestion].question}`
-       /* gets the current question from an array */
-       /* shows that question */
-       /* shows the answer choices (as buttons) */
+       questionEl.innerHTML = `${currentQuestion+1}. ${questions[currentQuestion].question}`;
+       
+       answer1.appendChild(button1)  
+       button1.innerHTML = `${questions[currentQuestion].answers[0]}`   
+     
+       answer2.appendChild(button2)  
+       button2.innerHTML = `${questions[currentQuestion].answers[1]}`
+
+       answer3.appendChild(button3)  
+       button3.innerHTML = `${questions[currentQuestion].answers[2]}`
+
+       answer4.appendChild(button4)  
+       button4.innerHTML = `${questions[currentQuestion].answers[3]}`
+       
        /* add event listener for each button created */
        checkAnswer();
     }
