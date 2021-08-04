@@ -14,11 +14,25 @@
 
     <h2 id='timer'></h2>
     
-    <div id="question">Questions for the quiz</div>
+    <div id="quizContainer" >
+
+        <div id="question">Questions for the quiz</div>
         <div id="answer1"></div>
         <div id="answer2"></div>
         <div id="answer3"></div>
         <div id="answer4"></div>
+        
+        
+    </div>
+
+    <div id="scoreArea" style="display: none;">
+        <div id="score"></div>
+        <div>Enter your initials and save your score!<input type="text" id="initials" maxlength="3"></div>
+        <button id="saveScore">Save Score</button>
+    </div>
+        <br>
+
+        <div id="next"></div>
 
         <br>
     <button id="start">Start Quiz</button>

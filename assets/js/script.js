@@ -1,25 +1,38 @@
 /* Define variables */
 
 let startBtn = document.getElementById('start');
+let saveScore = document.getElementById("saveScore")
 
-let currentQuestion = 0;
-let score = [];
-let selectedAnswersData = [];
 let questions = [{
     question:'When designing an webpage to be mobile-friendly in the CSS, what is the screen size to keep in mind when using ___?',
-    answers: ['1', '2', '3', '4']
+    answers: ['1', '2', '3', '4'],
+    correctAnswer: '3'
 }, {
     question: 'What is better: CSS, JS, or HTML?',
-    answers: ['CSS', 'JS', 'HTML', 'All are good!']
+    answers: ['CSS', 'JS', 'HTML', 'All are good!'],
+    correctAnswer: 'CSS'
 }, {
     question: 'Which of the following is NOT considered a good use of classes when coding?',
-    answers: ['to identify specific elements in JavaScript', 'answer 2', 'answer 3', 'answer 4']
+    answers: ['to identify specific elements in JavaScript', 'answer 2', 'answer 3', 'answer 4'],
+    correctAnswer: 'answers 3'
 }];
-     
-const totalQuestions = questions.length;
 
+let currentQuestion = 0;
+let score = 0;
+let secondsLeft = 90
+
+let highScores = [];
+if(localStorage.getItem("highscores")){
+    highScores = JSON.parse(localStorage.getItem("highscores"))
+}
+let selectedAnswers = [];
+const totalQuestions = questions.length;
 const timer = document.querySelector('#timer')
 const questionEl = document.querySelector('#question');
+
+
+
+// Answer button variables 
 
 const answer1 = document.querySelector('#answer1');
 const button1 = document.createElement('button');
@@ -36,13 +49,15 @@ const button3 = document.createElement('button');
 const answer4 = document.querySelector('#answer4')
 const button4 = document.createElement('button');
       button4.type = 'button'
-;
 
-// const nextButton = document.querySelector('.next');
-// const previousButton = document.querySelector('.previous');
+const next = document.querySelector('#next');
+const nextButton = document.createElement('button');
+      nextButton.type = 'button'
+
+
 // const restartButton = document.querySelector('.restart');
 // const result = document.querySelector('.result');
-// const container = document.querySelector('.quiz-container');
+
 
 
 /* Add functions */
@@ -50,52 +65,70 @@ const button4 = document.createElement('button');
 // start quiz --> init
 function startQuiz() {
     /* start timer */
-   let secondsLeft = 90
+   
     function startTimer() {
       let quizTimer = setInterval(function() {
         secondsLeft--;
         timer.textContent = secondsLeft + " seconds left to finish the quiz!";
-        if (secondsLeft === 0) {
+        if (secondsLeft <= 0 || currentQuestion >= questions.length) {
             clearInterval(quizTimer);
-            sendMessage();
+            endQuiz();
         }
       }, 1000);
     }
     startTimer();
-    /* find an area on your HTML and show the first question */
     getQuestion();
 
     function getQuestion() {
        questionEl.innerHTML = `${currentQuestion+1}. ${questions[currentQuestion].question}`;
        
        answer1.appendChild(button1)  
-       button1.innerHTML = `${questions[currentQuestion].answers[0]}`   
+       button1.innerHTML = `${questions[currentQuestion].answers[0]}`
+       button1.addEventListener('click', checkAnswer);   
      
        answer2.appendChild(button2)  
        button2.innerHTML = `${questions[currentQuestion].answers[1]}`
+       button2.addEventListener('click', checkAnswer);   
 
        answer3.appendChild(button3)  
        button3.innerHTML = `${questions[currentQuestion].answers[2]}`
+       button3.addEventListener('click', checkAnswer);   
 
        answer4.appendChild(button4)  
        button4.innerHTML = `${questions[currentQuestion].answers[3]}`
-       
-       /* add event listener for each button created */
-       checkAnswer();
+       button4.addEventListener('click', checkAnswer);   
     }
-    function checkAnswer() {
-       /* compares user selection to correct answer */
-       /* incorrect --> remove seconds */
-       /* track score */
-       getQuestion();
 
-       endQuiz();
-    }
+    function checkAnswer(event) {
+        console.log(event.target.textContent);
+       
+      
+      if(this.textContent == questions[currentQuestion].correctAnswer) {
+          score+=10;
+          console.log("correct")
+      } else{
+          secondsLeft-=15
+          console.log("incorrect")
+      };
+       
+      currentQuestion++;
+
+      if(currentQuestion < questions.length){
+          getQuestion()
+        };
+   
+   }
 }
 
 
-
 function endQuiz() {
+   
+
+    console.log(score)
+
+    document.getElementById("quizContainer").setAttribute("style", "display: none;")
+    document.getElementById("scoreArea").setAttribute("style", "display: block;")
+    document.getElementById("score").innerHTML = `Your final quiz score is ${score}!`
     // set final score
     // show end screen
     // clear out timer
@@ -104,9 +137,12 @@ function endQuiz() {
 
 function saveHighScore() {
     // prompt for initials
+    let initials = document.getElementById("initials").value
     // save score
+  
+    highScores.push(score+initials)
+    localStorage.setItem("highscores", JSON.stringify(highScores))
 }
-
 
 
 /* Event listeners */
@@ -123,6 +159,41 @@ saveScore.addEventListener('click', saveHighScore);
 
 
 
+/* Previously attemped code below */
+
+
+ //    if (button1.clicked == true) {
+    //        selectedAnswers.push(chooseAnswer1);
+    //        console.log('you clicked the first choice')
+    //    } else if (button2.clicked == true) {
+    //        selectedAnswers.push(chooseAnswer2);
+    //    } else if (button3.clicked == true) {
+    //        selectedAnswers.push(chooseAnswer3);
+    //    } else if (button4.clicked == true) {
+    //        selectedAnswers.push(chooseAnswer4);
+    //    }
+
+       
+    //    /* use push to send selected answer choice data index into selectedAnswers array? */
+
+    //    if (selectedAnswers[currentQuestion] === questions[currentQuestion].correctAnswer) {
+
+    //    }
+
+
+
+     // if+else function to check whether there are any more questions left in the quiz
+    //    if (currentQuestion < totalQuestions-1) {
+
+
+    //      next.appendChild(nextButton);
+    //      nextButton.innerHTML= 'Click for next question!';
+    //      nextButton.addEventListener('click', getQuestion);
+    //      // How to loop through questions / answers in questions array?
+
+    //     } else {
+    //      endQuiz();
+    //    };
 
 
 
@@ -130,118 +201,3 @@ saveScore.addEventListener('click', saveHighScore);
 
 
 
-
-
-
-
-
-// //Set of questions and answers -DONE
-// //Give each answer an identifier -DONE
-// //Each identifier will increment through each question
-// //St the end the identifier with the highest number is the winner 
-// //Display the answer and rest the quiz
-
-// //pass results frm previous question to the next page usig localcache
-
-// //Randomise the background of the quiz for each questiion
-
-// //Possible - Personality Traits
-// // 15 -21- You Need Help
-// // 10 - 15 - Good Soul
-// // 5- 10 - Meh 
-// // 5 - Are You Even Real
-
-
-
-// //Function to generate question 
-// function generateQuestions (index) {
-//     //Select each question by passing it a particular index
-//     const question = questions[index];
-//     const option1Total = questions[index].answer1Total;
-//     const option2Total = questions[index].answer2Total;
-//     const option3Total = questions[index].answer3Total;
-//     //Populate html elements 
-//     questionEl.innerHTML = `${index + 1}. ${question.question}`
-//     option1.setAttribute('data-total', `${option1Total}`);
-//     option2.setAttribute('data-total', `${option2Total}`);
-//     option3.setAttribute('data-total', `${option3Total}`);
-//     option1.innerHTML = `${question.answer1}`
-//     option2.innerHTML = `${question.answer2}`
-//     option3.innerHTML = `${question.answer3}`
-// }
-
-
-// function loadNextQuestion () {
-//     const selectedOption = document.querySelector('input[type="radio"]:checked');
-//     //Check if there is a radio input checked
-//     if(!selectedOption) {
-//         alert('Please select your answer!');
-//         return;
-//     }
-//     //Get value of selected radio
-//     const answerScore = Number(selectedOption.nextElementSibling.getAttribute('data-total'));
-
-//     ////Add the answer score to the score array
-//     score.push(answerScore);
-
-//     selectedAnswersData.push()
-    
-
-//     const totalScore = score.reduce((total, currentNum) => total + currentNum);
-
-//     //Finally we incement the current question number ( to be used as the index for each array)
-//     currentQuestion++;
-
-//         //once finished clear checked
-//         selectedOption.checked = false;
-//     //If quiz is on the final question
-//     if(currentQuestion == totalQuestions - 1) {
-//         nextButton.textContent = 'Finish';
-//     }
-//     //If the quiz is finished then we hide the questions container and show the results 
-//     if(currentQuestion == totalQuestions) {
-//         container.style.display = 'none';
-//         result.innerHTML =
-//          `<h1 class="final-score">Your score: ${totalScore}</h1>
-//          <div class="summary">
-//             <h1>Summary</h1>
-//             <p>Possible - Personality Traits, see below for a summary based on your results:</p>
-//             <p>15 - 21- You Need Help</p>
-//             <p>10 - 15 - Good Soul</p>
-//             <p>5 - 10 - Meh </p>
-//             <p>5 - Are You Even Real</p>
-//         </div>
-//         <button class="restart">Restart Quiz</button>
-//          `;
-//         return;
-//     }
-//     generateQuestions(currentQuestion);
-// }
-
-// //Function to load previous question
-// function loadPreviousQuestion() {
-//     //Decrement quentions index
-//     currentQuestion--;
-//     //remove last array value;
-//     score.pop();
-//     //Generate the question
-//     generateQuestions(currentQuestion);
-// }
-
-// //Fuction to reset and restart the quiz;
-// function restartQuiz(e) {
-//     if(e.target.matches('button')) {
-//     //reset array index and score
-//     currentQuestion = 0;
-//     score = [];
-//     //Reload quiz to the start
-//     location.reload();
-//     }
-
-// }
-
-
-// generateQuestions(currentQuestion);
-// nextButton.addEventListener('click', loadNextQuestion);
-// previousButton.addEventListener('click',loadPreviousQuestion);
-// result.addEventListener('click',restartQuiz);
