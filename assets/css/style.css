@@ -1,0 +1,115 @@
+:root {
+    --colorMain: rgb(161, 213, 255);
+    --colorSec: rgb(2, 61, 117);
+    --colorThi: rgb(65, 1, 168);
+  }
+
+body {
+    background-color: var(--colorMain);
+}
+
+h1 {
+    color: var(--colorSec);
+    text-shadow: -1px -1px white;
+    width: fit-content;
+    margin: auto;
+    align-content: center;
+}
+
+button:hover {
+    background-color: var(--colorThi);
+    color: white;
+    box-shadow: 0 0px 8px 3px white;
+    cursor: pointer;
+  }
+
+
+
+
+.timer {
+    font-size: xx-large;
+    font-weight: bold;
+    color: rgb(207, 7, 7);
+    width: fit-content;
+    margin: auto;
+}
+
+/* Main Quiz Container Classes */
+
+.quizContainer {
+    border-style: solid;
+    border-radius: 10px;
+    border-color: var(--colorThi);
+    width: 70%;
+    margin: auto;
+    padding: 1rem;
+    align-content: center;
+    box-shadow: 0 0px 10px 3px white;
+}
+
+.question {
+    font-size: larger;
+    font-weight: bold;
+    color: var(--colorSec);
+    padding-bottom: 1rem;
+}
+
+.scoreArea {
+    border-style: solid;
+    border-radius: 10px;
+    border-color: white;
+    background-color: var(--colorThi);
+    color: var(--colorMain);
+    font-size: larger;
+    font-weight: bold;
+    width: 70%;
+    margin: auto;
+    padding: 1rem;
+    align-content: center;
+    box-shadow: 0 0px 10px 3px var(--colorSec);
+}
+
+
+/* Button Classes */
+
+.startQuiz {
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+    padding: 0.7rem;
+    background-color: var(--colorSec);
+    border-radius: 20px;
+    border-style: solid;
+    border-color: white;
+    box-shadow: 0 0px 10px 3px var(--colorThi);
+    width: 16%;
+    margin-left: 42%;
+    margin-right: 42%;
+    align-content: center;
+}
+
+.answerButton {
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem;
+    background-color: var(--colorSec);
+    border-color: var(--colorThi);
+    width: 50%;
+    margin: auto;
+    align-content: center;
+}
+
+.saveScore {
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem;
+    background-color: var(--colorThi);
+    border-radius: 20px;
+    border-style: solid;
+    border-color: white;
+    box-shadow: 0 0px 10px 3px gold;
+    width: 16%;
+    margin-left: 42%;
+    margin-right: 42%;
+    align-content: center;
+}

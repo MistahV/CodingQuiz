@@ -9,34 +9,40 @@
 </head>
 <body>
     <h1>Coding Quiz Challenge</h1>
+  
+      <br>
+      <br>
+    <h2 id='timer' class="timer"></h2>
+      <br>
+    <div id="quizContainer" class="quizContainer" >
 
+        <div id="question" class="question">Press the 'Start Quiz' button to begin the Coding Quiz Challenge. You have 90 seconds to complete the quiz. Every correct answer will award you 10 points, but every incorrect answer will subtract 15 secs from the timer! Prepare yourself!</div>
+          <br>
+        <div id="answer1"></div>
+          <br>
+        <div id="answer2"></div>
+          <br>
+        <div id="answer3"></div>
+          <br>
+        <div id="answer4"></div>
+          <br>
+          
+    </div>
+
+    <div id="scoreArea" class="scoreArea" style="display: none;">
+        <div id="score"></div>
+          <br>
+        <div>Enter your initials and save your score: <input type="text" id="initials" maxlength="3"></div>
+          <br>
+        <button id="saveScore" class="saveScore">Save Score</button>
+    </div>
+       <br>
+       <br>
+    <button id="start" class="startQuiz">Start Quiz</button>
+       <br>
+       <br>
     <a href="/highscores.html">Show Highscores</a>
 
-    <h2 id='timer'></h2>
-    
-    <div id="quizContainer" >
-
-        <div id="question">Questions for the quiz</div>
-        <div id="answer1"></div>
-        <div id="answer2"></div>
-        <div id="answer3"></div>
-        <div id="answer4"></div>
-        
-        
-    </div>
-
-    <div id="scoreArea" style="display: none;">
-        <div id="score"></div>
-        <div>Enter your initials and save your score!<input type="text" id="initials" maxlength="3"></div>
-        <button id="saveScore">Save Score</button>
-    </div>
-        <br>
-
-        <div id="next"></div>
-
-        <br>
-    <button id="start">Start Quiz</button>
-    
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

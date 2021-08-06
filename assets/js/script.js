@@ -4,17 +4,21 @@ let startBtn = document.getElementById('start');
 let saveScore = document.getElementById("saveScore")
 
 let questions = [{
-    question:'When designing an webpage to be mobile-friendly in the CSS, what is the screen size to keep in mind when using ___?',
-    answers: ['1', '2', '3', '4'],
-    correctAnswer: '3'
+    question:'When designing an webpage to be mobile-friendly in the CSS, what is the max-width that should be used with Media Query?',
+    answers: ['480px', '720px', '820px', '360px'],
+    correctAnswer: '480px'
 }, {
-    question: 'What is better: CSS, JS, or HTML?',
-    answers: ['CSS', 'JS', 'HTML', 'All are good!'],
-    correctAnswer: 'CSS'
+    question: 'Which of the following is an example of a "code smell" (inefficient code)?',
+    answers: ['Having significantly different classes for different HTML elements', 'Writing JS functions that complete tasks with the fewest number of steps', 'Using indentation in HTML files to clearly show parent-child relationships', 'Including multiple "div" elements to the HTML when just one would have sufficed'],
+    correctAnswer: 'Including multiple "div" elements to the HTML when just one would have sufficed'
 }, {
-    question: 'Which of the following is NOT considered a good use of classes when coding?',
-    answers: ['to identify specific elements in JavaScript', 'answer 2', 'answer 3', 'answer 4'],
-    correctAnswer: 'answers 3'
+    question: 'Which of the following is NOT considered a good use of IDs when coding?',
+    answers: ['To target specific elements in JavaScript', 'To add style to HTML elements in the CSS sheets', 'To uniquely identify different components of the HTML', 'All the above'],
+    correctAnswer: 'To add style to HTML elements in the CSS sheets'
+}, {
+    question: 'What are some tools and strategies you can use to debug your code when it is not functioning properly?',
+    answers: ['Adding console.logs to your JS to make sure that certain functions are being read', 'Using "Inspect" / Chrome Dev Tools to look at your code on Chrome', 'Double-checking syntax in your code', 'All the above'],
+    correctAnswer: 'All the above'
 }];
 
 let currentQuestion = 0;
@@ -37,18 +41,22 @@ const questionEl = document.querySelector('#question');
 const answer1 = document.querySelector('#answer1');
 const button1 = document.createElement('button');
       button1.type = 'button'
+      button1.className = 'answerButton'
 
 const answer2 = document.querySelector('#answer2');
 const button2 = document.createElement('button');
       button2.type = 'button'
+      button2.className = 'answerButton'
 
 const answer3 = document.querySelector('#answer3');
 const button3 = document.createElement('button');
       button3.type = 'button'
+      button3.className = 'answerButton'
 
 const answer4 = document.querySelector('#answer4')
 const button4 = document.createElement('button');
       button4.type = 'button'
+      button4.className = 'answerButton'
 
 const next = document.querySelector('#next');
 const nextButton = document.createElement('button');
@@ -65,7 +73,8 @@ const nextButton = document.createElement('button');
 // start quiz --> init
 function startQuiz() {
     /* start timer */
-   
+   startBtn.setAttribute('style', 'display: none;');
+
     function startTimer() {
       let quizTimer = setInterval(function() {
         secondsLeft--;
@@ -122,34 +131,40 @@ function startQuiz() {
 
 
 function endQuiz() {
-   
 
     console.log(score)
-
+   
+    // show end screen
     document.getElementById("quizContainer").setAttribute("style", "display: none;")
     document.getElementById("scoreArea").setAttribute("style", "display: block;")
     document.getElementById("score").innerHTML = `Your final quiz score is ${score}!`
-    // set final score
-    // show end screen
+    timer.setAttribute("style", "display: none;")
+    
     // clear out timer
     // shows "save score?" button
 }
 
 function saveHighScore() {
     // prompt for initials
-    let initials = document.getElementById("initials").value
+    let initials = document.getElementById("initials").value;
     // save score
-  
-    highScores.push(score+initials)
-    localStorage.setItem("highscores", JSON.stringify(highScores))
+    
+    highScores.push(score+initials);
+    localStorage.setItem("highscores", JSON.stringify(highScores));
+
+    alert('Your score has been successfully saved to the Highscores page!');
 }
 
 
 /* Event listeners */
 
 startBtn.addEventListener('click', startQuiz);
-
 saveScore.addEventListener('click', saveHighScore);
+
+
+
+
+
 
 
 
