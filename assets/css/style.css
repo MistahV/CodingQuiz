@@ -113,3 +113,25 @@ button:hover {
     margin-right: 42%;
     align-content: center;
 }
+
+
+.retake {
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+    padding: 0.7rem;
+    background-color: var(--colorSec);
+    border-radius: 20px;
+    border-style: solid;
+    border-color: white;
+    box-shadow: 0 0px 10px 3px var(--colorThi);
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+    align-content: center;
+}
+
+.highscores {
+    color: var(--colorThi);
+    margin-left: 5%;
+}

@@ -2,6 +2,7 @@
 
 let startBtn = document.getElementById('start');
 let saveScore = document.getElementById("saveScore")
+let retakeBtn = document.getElementById("retakeBtn")
 
 let questions = [{
     question:'When designing an webpage to be mobile-friendly in the CSS, what is the max-width that should be used with Media Query?',
@@ -26,11 +27,15 @@ let score = 0;
 let secondsLeft = 90
 
 let highScores = [];
-if(localStorage.getItem("highscores")){
-    highScores = JSON.parse(localStorage.getItem("highscores"))
+if(localStorage.getItem('highscores')){
+    highScores = JSON.parse(localStorage.getItem('highscores'))
 }
+const highscoreArea = document.getElementById('highscoreArea');
+const scoreList = document.getElementById('scoreList')
+const showScores = document.createElement('li');
+
 let selectedAnswers = [];
-const totalQuestions = questions.length;
+
 const timer = document.querySelector('#timer')
 const questionEl = document.querySelector('#question');
 
@@ -57,15 +62,6 @@ const answer4 = document.querySelector('#answer4')
 const button4 = document.createElement('button');
       button4.type = 'button'
       button4.className = 'answerButton'
-
-const next = document.querySelector('#next');
-const nextButton = document.createElement('button');
-      nextButton.type = 'button'
-
-
-// const restartButton = document.querySelector('.restart');
-// const result = document.querySelector('.result');
-
 
 
 /* Add functions */
@@ -108,16 +104,12 @@ function startQuiz() {
        button4.addEventListener('click', checkAnswer);   
     }
 
-    function checkAnswer(event) {
-        console.log(event.target.textContent);
-       
-      
+    function checkAnswer() {
+         
       if(this.textContent == questions[currentQuestion].correctAnswer) {
           score+=10;
-          console.log("correct")
       } else{
           secondsLeft-=15
-          console.log("incorrect")
       };
        
       currentQuestion++;
@@ -131,28 +123,40 @@ function startQuiz() {
 
 
 function endQuiz() {
-
-    console.log(score)
-   
-    // show end screen
+ 
     document.getElementById("quizContainer").setAttribute("style", "display: none;")
     document.getElementById("scoreArea").setAttribute("style", "display: block;")
     document.getElementById("score").innerHTML = `Your final quiz score is ${score}!`
     timer.setAttribute("style", "display: none;")
     
-    // clear out timer
-    // shows "save score?" button
+   
+    let retrievedScores = localStorage.getItem('highscores');
+    highscoreArea.setAttribute('style', 'display: block;');
+    scoreList.appendChild(showScores);
+    showScores.innerHTML = retrievedScores;
+    
+    retakeBtn.setAttribute("style", "display: block;");
+    retakeBtn.addEventListener('click', retakeQuiz);
 }
 
 function saveHighScore() {
     // prompt for initials
-    let initials = document.getElementById("initials").value;
-    // save score
-    
+    let initials = document.getElementById("initials").value;    
     highScores.push(score+initials);
-    localStorage.setItem("highscores", JSON.stringify(highScores));
+    localStorage.setItem('highscores', JSON.stringify(highScores));
 
-    alert('Your score has been successfully saved to the Highscores page!');
+    alert('Your score has been successfully saved to the Highscores!');
+
+     // highscoreArea.createElement('li');
+    
+     let retrievedScores = localStorage.getItem('highscores');
+     highscoreArea.setAttribute('style', 'display: block;');
+     scoreList.appendChild(showScores);
+     showScores.innerHTML = retrievedScores;
+}
+
+function retakeQuiz() {
+    location.reload();
 }
 
 
@@ -160,6 +164,7 @@ function saveHighScore() {
 
 startBtn.addEventListener('click', startQuiz);
 saveScore.addEventListener('click', saveHighScore);
+
 
 
 
